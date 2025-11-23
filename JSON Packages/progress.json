@@ -1,0 +1,56 @@
+{
+  "name": "UserProgress",
+  "type": "object",
+  "properties": {
+    "total_points": {
+      "type": "number",
+      "default": 0,
+      "description": "Total points accumulated"
+    },
+    "current_streak": {
+      "type": "number",
+      "default": 0,
+      "description": "Current consecutive days streak"
+    },
+    "longest_streak": {
+      "type": "number",
+      "default": 0,
+      "description": "Longest streak achieved"
+    },
+    "last_activity_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Last day user completed a task"
+    },
+    "total_tasks_completed": {
+      "type": "number",
+      "default": 0,
+      "description": "Total number of tasks completed"
+    },
+    "total_goals_completed": {
+      "type": "number",
+      "default": 0,
+      "description": "Total number of goals completed"
+    },
+    "achievements": {
+      "type": "array",
+      "description": "List of earned achievements",
+      "items": {
+        "type": "object",
+        "properties": {
+          "badge": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "earned_date": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    }
+  },
+  "required": []
+}
