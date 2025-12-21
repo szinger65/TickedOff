@@ -15,7 +15,7 @@ export default function Layout({ children, currentPageName }) {
     { name: 'Progress', icon: TrendingUp, path: 'Progress' }
   ];
 
-  
+  hello
 
   return (
     <div className="min-h-screen bg-slate-50">
