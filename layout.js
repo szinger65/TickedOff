@@ -15,8 +15,6 @@ export default function Layout({ children, currentPageName }) {
     { name: 'Progress', icon: TrendingUp, path: 'Progress' }
   ];
 
-  hello
-
   return (
     <div className="min-h-screen bg-slate-50">
       <aside className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-72 lg:flex-col">
