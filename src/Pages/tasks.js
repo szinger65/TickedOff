@@ -1,43 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import { base44 } from '@/api/base44Client';
+import React, { useState } from 'react';
+import { api } from '../api/client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Plus } from 'lucide-react';
 import { motion, AnimatePresence } from "framer-motion";
 
-import TaskForm from '../components/tasks/TaskForm';
-import TaskCard from '../components/tasks/TaskCard';
+import TaskForm from '../Components/tasks/TaskForm';
+import TaskCard from '../Components/tasks/TaskCard';
 
 export default function Tasks() {
   const queryClient = useQueryClient();
   const [showForm, setShowForm] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
   const [filter, setFilter] = useState('all');
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    base44.auth.me().then(setUser).catch(() => {});
-  }, []);
+  
 
   const { data: tasks = [] } = useQuery({
     queryKey: ['tasks'],
-    queryFn: () => base44.entities.Task.list('-created_date', 100),
+    queryFn: api.tasks.list,
   });
 
   const { data: progressData = [] } = useQuery({
-    queryKey: ['userProgress', user?.email],
-    queryFn: async () => {
-      if (!user?.email) return [];
-      return base44.entities.UserProgress.filter({ created_by: user.email });
-    },
-    enabled: !!user?.email,
+    queryKey: ['userProgress'],
+    queryFn: () => api.userProgress.get('default'),
   });
 
   const userProgress = progressData[0] || {};
 
+ 
   const createTaskMutation = useMutation({
-    mutationFn: (data) => base44.entities.Task.create(data),
+    mutationFn: (data) => api.tasks.create(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tasks'] });
       setShowForm(false);
@@ -45,7 +38,7 @@ export default function Tasks() {
   });
 
   const updateTaskMutation = useMutation({
-    mutationFn: ({ id, data }) => base44.entities.Task.update(id, data),
+    mutationFn: ({ id, data }) => api.tasks.update(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tasks'] });
       setShowForm(false);
@@ -54,7 +47,7 @@ export default function Tasks() {
   });
 
   const deleteTaskMutation = useMutation({
-    mutationFn: (id) => base44.entities.Task.delete(id),
+    mutationFn: (id) => api.tasks.delete(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tasks'] });
     },
@@ -63,11 +56,13 @@ export default function Tasks() {
   const completeTaskMutation = useMutation({
     mutationFn: async (task) => {
       const now = new Date().toISOString();
-      await base44.entities.Task.update(task.id, {
+      // MongoDB uses _id, not id
+      await api.tasks.update(task._id, {
         status: 'completed',
         completed_date: now
       });
 
+      // Simple streak logic (Server should ideally handle this)
       const today = new Date().toISOString().split('T')[0];
       const lastActivity = userProgress.last_activity_date;
       const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
@@ -80,6 +75,7 @@ export default function Tasks() {
       }
 
       const updatedProgress = {
+        ...userProgress,
         total_points: (userProgress.total_points || 0) + (task.points || 10),
         current_streak: newStreak,
         longest_streak: Math.max(newStreak, userProgress.longest_streak || 0),
@@ -87,10 +83,10 @@ export default function Tasks() {
         total_tasks_completed: (userProgress.total_tasks_completed || 0) + 1
       };
 
-      if (progressData.length > 0) {
-        await base44.entities.UserProgress.update(progressData[0].id, updatedProgress);
+      if (userProgress._id) {
+        await api.userProgress.update(userProgress._id, updatedProgress);
       } else {
-        await base44.entities.UserProgress.create(updatedProgress);
+        await api.userProgress.create(updatedProgress);
       }
     },
     onSuccess: () => {
@@ -101,7 +97,8 @@ export default function Tasks() {
 
   const handleSubmit = (data) => {
     if (editingTask) {
-      updateTaskMutation.mutate({ id: editingTask.id, data });
+      // Use _id for updates
+      updateTaskMutation.mutate({ id: editingTask._id, data });
     } else {
       createTaskMutation.mutate(data);
     }
@@ -138,7 +135,7 @@ export default function Tasks() {
           </Button>
         </div>
 
-        {/* Filters */}
+        {}
         <div className="mb-6">
           <Tabs value={filter} onValueChange={setFilter}>
             <TabsList className="bg-white border shadow-sm">
@@ -149,7 +146,7 @@ export default function Tasks() {
           </Tabs>
         </div>
 
-        {/* Form Modal */}
+        {}
         <AnimatePresence>
           {showForm && (
             <motion.div
@@ -176,7 +173,7 @@ export default function Tasks() {
           )}
         </AnimatePresence>
 
-        {/* Tasks List */}
+        {}
         <div className="space-y-3">
           <AnimatePresence mode="popLayout">
             {filteredTasks.length === 0 ? (
@@ -190,16 +187,16 @@ export default function Tasks() {
             ) : (
               filteredTasks.map((task) => (
                 <TaskCard
-                  key={task.id}
+                  key={task._id}
                   task={task}
-                  onComplete={completeTaskMutation.mutate}
-                  onEdit={(task) => {
-                    setEditingTask(task);
+                  onComplete={(t) => completeTaskMutation.mutate(t)}
+                  onEdit={(t) => {
+                    setEditingTask(t);
                     setShowForm(true);
                   }}
-                  onDelete={(task) => {
-                    if (confirm('Are you sure you want to delete this task?')) {
-                      deleteTaskMutation.mutate(task.id);
+                  onDelete={(t) => {
+                    if (window.confirm('Are you sure you want to delete this task?')) {
+                      deleteTaskMutation.mutate(t._id);
                     }
                   }}
                 />
