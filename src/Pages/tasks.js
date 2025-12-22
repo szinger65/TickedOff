@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { api } from '../api/client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Button } from "@/components/ui/button";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/Components/ui/button";
+import { Tabs, TabsList, TabsTrigger } from "@/Components/ui/tabs";
 import { Plus } from 'lucide-react';
 import { motion, AnimatePresence } from "framer-motion";
 
-import TaskForm from '../components/tasks/formtasks';
-import TaskCard from '../components/tasks/taskcard';
+import TaskForm from '../Components/tasks/formtasks';
+import TaskCard from '../Components/tasks/taskcard';
 
 export default function Tasks() {
   const queryClient = useQueryClient();
@@ -61,8 +61,6 @@ export default function Tasks() {
         status: 'completed',
         completed_date: now
       });
-
-      // Simple streak logic (Server should ideally handle this)
       const today = new Date().toISOString().split('T')[0];
       const lastActivity = userProgress.last_activity_date;
       const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
@@ -97,7 +95,6 @@ export default function Tasks() {
 
   const handleSubmit = (data) => {
     if (editingTask) {
-      // Use _id for updates
       updateTaskMutation.mutate({ id: editingTask._id, data });
     } else {
       createTaskMutation.mutate(data);
@@ -114,7 +111,7 @@ export default function Tasks() {
   return (
     <div className="min-h-screen bg-slate-50">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
+        {}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
           <div>
             <h1 className="text-4xl font-bold text-slate-900 mb-2">
