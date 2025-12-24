@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { api } from '../api/client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Button } from "@/Components/ui/button";
-import { Tabs, TabsList, TabsTrigger } from "@/Components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Plus } from 'lucide-react';
 import { motion, AnimatePresence } from "framer-motion";
 
-import TaskForm from '../Components/tasks/formtasks';
-import TaskCard from '../Components/tasks/taskcard';
+import TaskForm from '../components/tasks/formtasks';
+import TaskCard from '../components/tasks/taskcard';
 
 export default function Tasks() {
   const queryClient = useQueryClient();

@@ -6,8 +6,8 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Target, Plus } from 'lucide-react';
 import { motion, AnimatePresence } from "framer-motion";
 
-import GoalForm from '../Components/goals/formgoals';
-import GoalCard from '../Components/goals/goalscard';
+import GoalForm from '../components/goals/formgoals';
+import GoalCard from '../components/goals/goalscard';
 
 export default function Goals() {
   const queryClient = useQueryClient();

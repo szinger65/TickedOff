@@ -5,10 +5,10 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import Layout from './layout';
-import Dashboard from './Pages/dashboard';
-import Tasks from './Pages/tasks';
-import Goals from './Pages/goals';
-import Progress from './Pages/progress';
+import Dashboard from './pages/dashboard';
+import Tasks from './pages/tasks';
+import Goals from './pages/goals';
+import Progress from './pages/progress';
 
 const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById('root'));

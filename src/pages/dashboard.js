@@ -7,10 +7,10 @@ import { motion } from "framer-motion";
 import { useNavigate } from 'react-router-dom';
 
 
-import StatsCard from '../Components/dashboard/stats';
-import TodaysTasks from '../Components/dashboard/today_tasks';
-import ActiveGoals from '../Components/dashboard/activegoals';
-import StreakCounter from '../Components/streak';
+import StatsCard from '../components/dashboard/stats';
+import TodaysTasks from '../components/dashboard/today_tasks';
+import ActiveGoals from '../components/dashboard/activegoals';
+import StreakCounter from '../components/streak';
 
 export default function Dashboard() {
   const navigate = useNavigate();
