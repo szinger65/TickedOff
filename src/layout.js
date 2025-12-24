@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { createPageUrl } from '@/utils';
 import { LayoutDashboard, CheckSquare, Target, TrendingUp, Menu, X, Zap } from 'lucide-react';
 //import { Button } from "./components/ui/button";
 import { useState } from 'react';
@@ -35,7 +34,7 @@ export default function Layout({ children, currentPageName }) {
                 return (
                   <li key={item.name}>
                     <Link
-                      to={createPageUrl(item.path)}
+                      to={`/${item.path.toLowerCase()}`}
                       className={`group flex gap-x-3 rounded-lg p-3 text-sm leading-6 font-semibold transition-all ${
                         isActive
                           ? 'bg-blue-600 text-white'
