@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { api } from '../api/client';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 
@@ -19,17 +19,44 @@ export default function Login() {
       
       navigate('/dashboard');
     } catch (err) {
-      alert("Login failed");
+      alert("Login failed. Check your email and password.");
     }
   };
 
   return (
     <div className="flex justify-center items-center h-screen bg-slate-50">
       <form onSubmit={handleLogin} className="p-8 bg-white rounded-xl shadow-lg w-96 space-y-4">
-        <h1 className="text-2xl font-bold">Login</h1>
-        <Input placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
-        <Input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
-        <Button type="submit" className="w-full">Sign In</Button>
+        <div className="text-center mb-4">
+          <h1 className="text-2xl font-bold text-slate-900">Login</h1>
+          <p className="text-slate-500 text-sm">Welcome back to FlowTask</p>
+        </div>
+
+        <Input 
+          placeholder="Email" 
+          type="email"
+          value={email} 
+          onChange={e => setEmail(e.target.value)} 
+          required
+        />
+        <Input 
+          type="password" 
+          placeholder="Password" 
+          value={password} 
+          onChange={e => setPassword(e.target.value)} 
+          required
+        />
+        
+        <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">
+          Sign In
+        </Button>
+
+        {}
+        <div className="text-center mt-4 text-sm">
+          <span className="text-slate-500">Don't have an account? </span>
+          <Link to="/register" className="text-blue-600 font-semibold hover:underline">
+            Sign up
+          </Link>
+        </div>
       </form>
     </div>
   );

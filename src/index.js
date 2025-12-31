@@ -11,6 +11,8 @@ import Dashboard from './pages/dashboard';
 import Tasks from './pages/tasks';
 import Goals from './pages/goals';
 import Progress from './pages/progress';
+import Register from './pages/register';
+
 
 const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -39,7 +41,7 @@ root.render(
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
-          
+          <Route path="/register" element={<Register />} />
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
           
           <Route path="/dashboard" element={
