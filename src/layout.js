@@ -23,7 +23,7 @@ export default function Layout({ children, currentPageName }) {
               <Zap className="w-6 h-6 text-white" />
             </div>
             <span className="text-2xl font-bold text-white">
-              FlowTask
+              Ticked Off
             </span>
           </div>
           <nav className="flex flex-1 flex-col">
