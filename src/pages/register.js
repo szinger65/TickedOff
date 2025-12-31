@@ -51,7 +51,7 @@ export default function Register() {
       <form onSubmit={handleRegister} className="p-8 bg-white rounded-xl shadow-lg w-full max-w-md space-y-4">
         <div className="text-center mb-6">
           <h1 className="text-2xl font-bold text-slate-900">Create an Account</h1>
-          <p className="text-slate-500 text-sm">Join FlowTask to track your progress</p>
+          <p className="text-slate-500 text-sm">Join TickedOff to track your progress</p>
         </div>
 
         {error && (
