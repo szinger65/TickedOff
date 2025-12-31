@@ -3,8 +3,11 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+// 1. Import Analytics
+import { Analytics } from '@vercel/analytics/react';
 
 import Layout from './layout';
+import Login from './pages/login'; 
 import Dashboard from './pages/dashboard';
 import Tasks from './pages/tasks';
 import Goals from './pages/goals';
@@ -19,24 +22,52 @@ const LayoutWrapper = ({ children, pageName }) => (
   </Layout>
 );
 
+const ProtectedRoute = ({ children }) => {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
+  return children;
+};
+
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
+      
+      {}
+      <Analytics />
+
       <BrowserRouter>
         <Routes>
-          {}
+          <Route path="/login" element={<Login />} />
+          
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
           
-          <Route path="/dashboard" element={<LayoutWrapper pageName="Dashboard"><Dashboard /></LayoutWrapper>} />
-          <Route path="/tasks" element={<LayoutWrapper pageName="Tasks"><Tasks /></LayoutWrapper>} />
-          <Route path="/goals" element={<LayoutWrapper pageName="Goals"><Goals /></LayoutWrapper>} />
-          <Route path="/progress" element={<LayoutWrapper pageName="Progress"><Progress /></LayoutWrapper>} />
+          <Route path="/dashboard" element={
+            <ProtectedRoute>
+              <LayoutWrapper pageName="Dashboard"><Dashboard /></LayoutWrapper>
+            </ProtectedRoute>
+          } />
+          
+          <Route path="/tasks" element={
+            <ProtectedRoute>
+              <LayoutWrapper pageName="Tasks"><Tasks /></LayoutWrapper>
+            </ProtectedRoute>
+          } />
+          
+          <Route path="/goals" element={
+            <ProtectedRoute>
+              <LayoutWrapper pageName="Goals"><Goals /></LayoutWrapper>
+            </ProtectedRoute>
+          } />
+          
+          <Route path="/progress" element={
+            <ProtectedRoute>
+              <LayoutWrapper pageName="Progress"><Progress /></LayoutWrapper>
+            </ProtectedRoute>
+          } />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>
   </React.StrictMode>
 );
-
-
-
-//trigger new build
