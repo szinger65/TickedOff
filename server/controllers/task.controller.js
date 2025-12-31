@@ -27,7 +27,6 @@ module.exports.getOneTask = async (req, res) => {
     }
 };
 
-// Update a task by ID
 module.exports.updateTask = async (req, res) => {
     try {
         const updatedTask = await Task.findOneAndUpdate(
@@ -48,4 +47,16 @@ module.exports.deleteTask = async (req, res) => {
     } catch (err) {
         res.status(400).json(err);
     }
+};
+
+module.exports.getAllTasks = async (req, res) => {
+    // req.userId comes from the middleware we made in Step 3
+    const tasks = await Task.find({ user_id: req.userId });
+    res.json(tasks);
+};
+
+module.exports.createTask = async (req, res) => {
+    const newTask = { ...req.body, user_id: req.userId }; // Add the ID
+    const task = await Task.create(newTask);
+    res.json(task);
 };

@@ -11,7 +11,19 @@ export const apiClient = axios.create({
   },
 });
 
+apiClient.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
 export const api = {
+  auth: {
+    login: (data) => apiClient.post('/login', data).then(res => res.data),
+    register: (data) => apiClient.post('/register', data).then(res => res.data),
+  },
   tasks: {
     list: () => apiClient.get('/tasks').then(res => res.data),
     create: (data) => apiClient.post('/tasks', data).then(res => res.data),
