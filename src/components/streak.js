@@ -22,7 +22,7 @@ export default function StreakCounter({ currentStreak, longestStreak }) {
           >
             <Flame className="w-8 h-8" />
           </motion.div>
-          <h3 className="text-lg font-bold">Your Streak</h3>
+          <h2 className="text-lg font-bold">Your Streak</h2>
         </div>
         <div className="flex items-end gap-6">
           <div>
