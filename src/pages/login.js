@@ -69,9 +69,9 @@ export default function Login() {
           </Link>
         </div>
       </form>
-      <div>
+      <div className="absolute bottom-6 text center">
         <Link to="/about" className="text-blue-600 font-semibold hover:underline">
-          About TickedOff
+          About
         </Link>
       </div>
     </div>
