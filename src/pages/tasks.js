@@ -8,13 +8,15 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import TaskForm from '../components/tasks/formtasks';
 import TaskCard from '../components/tasks/taskcard';
+import Modal from '../components/ui/modal';
 
 export default function Tasks() {
   const queryClient = useQueryClient();
   const [showForm, setShowForm] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
   const [filter, setFilter] = useState('all');
-  
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [taskToDelete, setTaskToDelete] = useState(null);
 
   const { data: tasks = [] } = useQuery({
     queryKey: ['tasks'],
@@ -28,7 +30,6 @@ export default function Tasks() {
 
   const userProgress = progressData[0] || {};
 
- 
   const createTaskMutation = useMutation({
     mutationFn: (data) => api.tasks.create(data),
     onSuccess: () => {
@@ -50,17 +51,19 @@ export default function Tasks() {
     mutationFn: (id) => api.tasks.delete(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tasks'] });
+      setIsDeleteModalOpen(false);
+      setTaskToDelete(null);
     },
   });
 
   const completeTaskMutation = useMutation({
     mutationFn: async (task) => {
       const now = new Date().toISOString();
-      // MongoDB uses _id, not id
       await api.tasks.update(task._id, {
         status: 'completed',
         completed_date: now
       });
+
       const today = new Date().toISOString().split('T')[0];
       const lastActivity = userProgress.last_activity_date;
       const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
@@ -101,6 +104,12 @@ export default function Tasks() {
     }
   };
 
+  const confirmDelete = () => {
+    if (taskToDelete) {
+      deleteTaskMutation.mutate(taskToDelete._id);
+    }
+  };
+
   const filteredTasks = tasks.filter(task => {
     if (filter === 'all') return true;
     if (filter === 'pending') return task.status === 'pending';
@@ -111,12 +120,9 @@ export default function Tasks() {
   return (
     <div className="min-h-screen bg-slate-50">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
           <div>
-            <h1 className="text-4xl font-bold text-slate-900 mb-2">
-              My Tasks
-            </h1>
+            <h1 className="text-4xl font-bold text-slate-900 mb-2">My Tasks</h1>
             <p className="text-slate-500">Manage your daily tasks and stay productive</p>
           </div>
           <Button
@@ -132,7 +138,6 @@ export default function Tasks() {
           </Button>
         </div>
 
-        {}
         <div className="mb-6">
           <Tabs value={filter} onValueChange={setFilter}>
             <TabsList className="bg-white border shadow-sm">
@@ -171,14 +176,33 @@ export default function Tasks() {
         </AnimatePresence>
 
         {}
+        <Modal 
+          isOpen={isDeleteModalOpen} 
+          onClose={() => setIsDeleteModalOpen(false)}
+          title="Delete Task"
+        >
+          <div className="space-y-4">
+            <p className="text-slate-600">
+              Are you sure you want to delete <span className="font-bold text-slate-900">"{taskToDelete?.title}"</span>? 
+              This action cannot be undone.
+            </p>
+            <div className="flex justify-end gap-3">
+              <Button variant="ghost" onClick={() => setIsDeleteModalOpen(false)}>Cancel</Button>
+              <Button 
+                className="bg-red-600 hover:bg-red-700 text-white" 
+                onClick={confirmDelete}
+              >
+                Delete
+              </Button>
+            </div>
+          </div>
+        </Modal>
+
+        {}
         <div className="space-y-3">
           <AnimatePresence mode="popLayout">
             {filteredTasks.length === 0 ? (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-center py-12"
-              >
+              <motion.div className="text-center py-12">
                 <p className="text-slate-500 text-lg">No tasks found. Create your first task to get started!</p>
               </motion.div>
             ) : (
@@ -192,9 +216,8 @@ export default function Tasks() {
                     setShowForm(true);
                   }}
                   onDelete={(t) => {
-                    if (window.confirm('Are you sure you want to delete this task?')) {
-                      deleteTaskMutation.mutate(t._id);
-                    }
+                    setTaskToDelete(t);
+                    setIsDeleteModalOpen(true);
                   }}
                 />
               ))
