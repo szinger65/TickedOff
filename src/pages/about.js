@@ -12,27 +12,27 @@ export default function About() {
         </Link>
         {}
         <h1 className="text-4xl font-extrabold text-slate-900 mb-6">
-          About FlowTask
+          About TickedOff
         </h1>
         <div className="space-y-4 text-slate-600 leading-relaxed">
           <p>
-            FlowTask isn't just another to-do list. It is a philosophy of productivity designed 
+            TickedOff isn't just another to-do list. It is a philosophy of productivity designed 
             to bridge the gap between your daily grind and your life's biggest ambitions.
           </p>
           <p>
-            We believe that <strong>micro-tasks</strong> (the small things you do every day) should directly 
-            contribute to your <strong>macro-goals</strong>. When you can see the progress bar move 
+            I believe that small daily taks should directly 
+            contribute to your long term goals. When you can see the progress bar move 
             on a life goal just by checking off a daily chore, motivation becomes automatic.
           </p>
-          <h2 className="text-xl font-bold text-slate-900 pt-4">Why we built this</h2>
+          <h2 className="text-xl font-bold text-slate-900 pt-4">Why I built this</h2>
           <p>
-            Traditional productivity tools are lists of endless obligations. FlowTask is a 
+            Traditional productivity tools are lists of endless obligations. TickedOff is a 
             game where you are the protagonist. Earn points, build streaks, and watch 
             your profile grow as you conquer your day.
           </p>
         </div>
         <div className="mt-8 pt-8 border-t border-slate-100 text-center">
-            <p className="text-sm text-slate-400">© 2025 FlowTask Inc.</p>
+            <p className="text-sm text-slate-400">© 2026 TickedOff Inc.</p>
         </div>
       </div>
     </div>
