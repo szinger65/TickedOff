@@ -32,7 +32,7 @@ export default function Login() {
         <SplitText 
           text="TickedOff" 
           className="text-8xl font-extrabold text-slate-900 tracking-tighter" 
-          delay={200}
+          delay={150}
         />
         <p className="text-slate-500 mt-3 text-lg">Master your day, conquer your goals.</p>
       </div>
