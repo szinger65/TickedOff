@@ -7,7 +7,7 @@ export default function About() {
     <div className="min-h-screen bg-slate-50 flex justify-center items-center p-6">
       <div className="max-w-2xl w-full bg-white p-10 rounded-2xl shadow-xl">
         {}
-        <Link to="/layout" className="inline-flex items-center text-sm text-slate-500 hover:text-black mb-8 transition-colors">
+        <Link to="/dashboard" className="inline-flex items-center text-sm text-slate-500 hover:text-black mb-8 transition-colors">
           <ArrowLeft className="w-4 h-4 mr-1" /> Back to Main Page
         </Link>
         {}
