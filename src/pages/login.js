@@ -68,8 +68,11 @@ export default function Login() {
             Sign up
           </Link>
         </div>
+        <div className="text-center mt-4 text-sm text-red-600">
+          <p>Login failed. Check your email or password.</p>
+        </div>
       </form>
-      <div className="absolute bottom-6 text-xl center">
+      <div className="absolute bottom-6 text center">
         <Link to="/about" className="text-blue-600 font-semibold hover:underline">
           About
         </Link>
