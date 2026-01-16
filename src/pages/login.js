@@ -31,8 +31,8 @@ export default function Login() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen bg-slate-50">
-      <div style={{ width: '100%', height: 600, position: 'relative' }}>
+    <div className="relative flex flex-col justify-center items-center h-screen w-full overflow-hidden bg-slate-50">
+      <div className="absolute inset -0 z-0">
         <LiquidEther
           colors={[ '#5227FF', '#FF9FFC', '#B19EEF' ]}
           mouseForce={20}
@@ -50,6 +50,8 @@ export default function Login() {
           autoResumeDelay={3000}
           autoRampDuration={0.6}
         />
+      </div>
+      <div className="relative z-10 flex flex-col items-center">
       <div className="mb-10 text-center">
         <SplitText 
           text="TickedOff" 
@@ -96,11 +98,11 @@ export default function Login() {
           </div>
         )}
       </form>
-      <div className="absolute bottom-6 text center">
+      </div>
+      <div className="absolute bottom-6 w-full text-center z-10">
         <Link to="/about" className="text-blue-600 font-semibold hover:underline">
           About
         </Link>
-      </div>
       </div>
     </div>
   );
