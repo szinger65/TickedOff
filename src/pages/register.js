@@ -14,7 +14,6 @@ export default function Register() {
   });
   const [error, setError] = useState('');
   const[errr, setErrr] = useState('');
-  const[pwrd, setPwrd] = useState('');
   const navigate = useNavigate('');
 
   const handleChange = (e) => {
@@ -27,13 +26,16 @@ export default function Register() {
     setErrr('');
 
     let pswrd = formData.password;
-    setPwrd(pswrd);
     let array = pswrd.split();
+    let c = true;
     for (let i = 0; i <= formData.password.length; i++ ) {
         if (array[i] !== '!') {
-          setErrr("You must have a character in your password");
-          return;
+          c = false;
         }
+    }
+    if (c == false) {
+      setErrr("You must have a character in your password");
+      return;
     }
     if (formData.password !== formData.confirmPassword) {
       setError("Passwords do not match, please try again");
@@ -106,7 +108,6 @@ export default function Register() {
 
         {errr && (
           <div className="text-center text-sm mt-4 text-red-600">
-            {pwrd};
             {errr};
           </div>
         )}
