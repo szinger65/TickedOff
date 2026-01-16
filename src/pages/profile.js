@@ -66,7 +66,7 @@ export default function Profile() {
             <Input 
               id="picture" 
               type="file" 
-              accept="image/*" 
+              accept="image/png, image/jpeg, image/jpg" 
               className="hidden" 
               onChange={handleImageUpload} 
             />
