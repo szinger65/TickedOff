@@ -13,6 +13,7 @@ export default function Register() {
     confirmPassword: ''
   });
   const [error, setError] = useState('');
+  const[errr, setErrr] = useState('')
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -23,6 +24,13 @@ export default function Register() {
     e.preventDefault();
     setError('');
 
+    let pswrd = formData.password;
+    let array = pswrd.split();
+    for (let i = 0; i <= password.length; i++ ) {
+        if (array[i] != '!') {
+          setErrr("You must have a character in your password");
+        }
+    }
     if (formData.password !== formData.confirmPassword) {
       setError("Passwords do not match, please try again");
       return;
@@ -91,6 +99,12 @@ export default function Register() {
             onChange={handleChange} 
           />
         </div>
+
+        {err && (
+          <div className="text-center text-sm mt-4 text-red-600">
+            {errr}
+          </div>
+        )}
 
         <div className="space-y-2">
           <Label htmlFor="confirmPassword">Confirm Password</Label>
