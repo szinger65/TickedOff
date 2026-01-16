@@ -50,7 +50,6 @@ export default function Login() {
           autoResumeDelay={3000}
           autoRampDuration={0.6}
         />
-      </div>
       <div className="mb-10 text-center">
         <SplitText 
           text="TickedOff" 
@@ -101,6 +100,7 @@ export default function Login() {
         <Link to="/about" className="text-blue-600 font-semibold hover:underline">
           About
         </Link>
+      </div>
       </div>
     </div>
   );
