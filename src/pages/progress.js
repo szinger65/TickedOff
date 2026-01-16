@@ -14,10 +14,6 @@ export default function Progress() {
     queryFn: api.tasks.list,
   });
 
-  const { data: goals = [] } = useQuery({
-    queryKey: ['goals'],
-    queryFn: api.goals.list,
-  });
 
   const { data: progressData = [] } = useQuery({
     queryKey: ['userProgress'],
