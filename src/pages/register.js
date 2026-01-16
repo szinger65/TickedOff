@@ -29,6 +29,7 @@ export default function Register() {
     for (let i = 0; i <= formData.password.length; i++ ) {
         if (array[i] !== '!') {
           setErrr("You must have a character in your password");
+          return;
         }
     }
     if (formData.password !== formData.confirmPassword) {
