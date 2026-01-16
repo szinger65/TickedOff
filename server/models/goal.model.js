@@ -7,6 +7,12 @@ const MilestoneSchema = new mongoose.Schema({
 });
 
 const GoalSchema = new mongoose.Schema({
+    user_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    
     title: {
         type: String,
         required: [true, "Title is required"]

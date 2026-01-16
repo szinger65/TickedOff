@@ -7,11 +7,16 @@ const AchievementSchema = new mongoose.Schema({
 });
 
 const UserProgressSchema = new mongoose.Schema({
-    email: String, 
+    user_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    
     total_points: { type: Number, default: 0 },
     current_streak: { type: Number, default: 0 },
     longest_streak: { type: Number, default: 0 },
-    last_activity_date: String,
+    last_activity_date: String, 
     total_tasks_completed: { type: Number, default: 0 },
     total_goals_completed: { type: Number, default: 0 },
     achievements: [AchievementSchema]

@@ -1,8 +1,8 @@
 const ProgressController = require('../controllers/progress.controller');
+const auth = require('../middleware/auth');
 
 module.exports = (app) => {
-    app.get('/api/progress/:email', ProgressController.getProgress);
-    app.get('/api/progress', ProgressController.getProgress);
-    app.post('/api/progress', ProgressController.createProgress);
-    app.put('/api/progress/:id', ProgressController.updateProgress);
+    app.get('/api/progress', auth, ProgressController.getProgress);       
+    app.post('/api/progress', auth, ProgressController.createProgress);
+    app.put('/api/progress/:id', auth, ProgressController.updateProgress);
 };
