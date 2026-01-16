@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 
-const TabsContext = React.createContext({});
 
 export const Tabs = ({ value, onValueChange, children, className }) => {
   return (

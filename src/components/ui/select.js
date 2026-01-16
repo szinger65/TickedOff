@@ -1,6 +1,4 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
-import { clsx } from "clsx";
 
 export const Select = ({ children, value, onValueChange }) => {
   return (

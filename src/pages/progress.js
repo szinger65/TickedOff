@@ -4,7 +4,6 @@ import { useQuery } from '@tanstack/react-query';
 import { Card, CardHeader, CardTitle, CardContent } from "../components/ui/card";
 import { motion } from "framer-motion";
 import { BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { Trophy, TrendingUp, Target, CheckCircle, Award } from 'lucide-react';
 import { format, subDays, eachDayOfInterval } from 'date-fns';
 
 const COLORS = ['#8b5cf6', '#14b8a6', '#f59e0b', '#ef4444', '#3b82f6', '#ec4899'];
