@@ -53,7 +53,7 @@ export default function About() {
   );
 }
 
-function App() {
+export default function App() {
   return (
     <div style={{ height: '200px', position: 'relative', overflow: 'hidden', bottom: '20px'}}>
       {/* Basic horizontal loop */}
