@@ -55,7 +55,7 @@ export default function About() {
 
 export function App() {
   return (
-    <div style={{ height: '200px', position: 'relative', overflow: 'hidden', bottom: '20px'}}>
+    <div style={{ height: '200px', position: 'absolute', overflow: 'hidden', bottom: '20px'}}>
       {/* Basic horizontal loop */}
       <LogoLoop
         logos={techLogos}
