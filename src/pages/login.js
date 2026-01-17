@@ -52,13 +52,13 @@ export default function Login() {
         />
       </div>
       <div className="relative z-10 flex flex-col items-center">
-      <div className="mb-10 text-center text-white-600">
+      <div className="mb-10 text-center">
         <SplitText 
           text="TickedOff" 
-          className="text-8xl font-extrabold text-white-900 tracking-tighter" 
+          className="text-8xl font-extrabold text-white tracking-tighter" 
           delay={150}
         />
-        <p className="text-slate-500 mt-3 text-lg">Master your day, conquer your goals.</p>
+        <p className="text-white mt-3 text-lg">Master your day, conquer your goals.</p>
       </div>
       <form onSubmit={handleLogin} className="p-8 bg-white rounded-xl shadow-lg w-96 space-y-4">
         <div className="text-center mb-4">
