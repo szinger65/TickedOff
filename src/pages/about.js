@@ -38,7 +38,7 @@ export default function About() {
             contribute to your long term goals. When you can see the progress bar move 
             on a life goal just by checking off a daily chore, motivation becomes automatic.
           </p>
-          <h2 className="text-l font-bold text-slate-900 pt-4">Why I built this</h2>
+          <h2 className="text-2xl font-bold text-slate-900 pt-4">Why I built this</h2>
           <p>
             Traditional productivity tools are lists of endless obligations. TickedOff is a 
             game where you are the protagonist. Earn points, build streaks, and watch 
@@ -49,7 +49,7 @@ export default function About() {
             <p className="text-sm text-slate-400">© 2026 TickedOff Inc.</p>
         </div>
       </div>
-      <div style={{ height: '200px', position: 'absolute', overflow: 'hidden'}}>
+      <div style={{ height: '200px', position: 'absolute', overflow: 'hidden', bottom: '200px'}}>
         {}
         <LogoLoop
           logos={techLogos}
